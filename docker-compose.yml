@@ -1,0 +1,18 @@
+version: "2.1"
+
+volumes:
+  mybank-dependencies:
+  mybank-builds:
+
+services:
+  mybank:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: mix phx.server
+    volumes:
+      - .:/usr/src/app
+      - mybank-dependencies:/usr/src/app/deps
+      - mybank-builds:/usr/src/app/_build
+    ports:
+    - "4000:4000"
