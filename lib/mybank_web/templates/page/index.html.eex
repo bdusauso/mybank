@@ -3,7 +3,7 @@
     <h2>API Token</h2>
     <form>
       <input type="text" placeholder="API Token (JWT)" />
-      <input class="button-primary" type="submit" value="Load Accounts" />
+      <input class="button" type="submit" value="Load Accounts" />
     </form>
   </article>
 </section>
@@ -22,7 +22,18 @@
 <section class="row">
   <article class="column">
     <h2>Account Details</h2>
-    <input class="button-primary" type="submit" value="Load Transactions" />
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <strong>BNPPF Home</strong><br />
+          BE0987654323451
+        </div>
+        <div class="column">
+          123.98 €
+        </div>
+      </div>
+    </div>
+    <button class="button">Load Transactions</button>
   </article>
 </section>
 
