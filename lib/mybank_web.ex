@@ -23,6 +23,7 @@ defmodule MybankWeb do
 
       import Plug.Conn
       import MybankWeb.Gettext
+      import Phoenix.LiveView.Controller, only: [live_render: 3]
       alias MybankWeb.Router.Helpers, as: Routes
     end
   end
