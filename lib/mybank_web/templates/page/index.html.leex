@@ -1,24 +1,28 @@
 <section class="row">
   <article class="column">
     <h2>API Token</h2>
-    <form>
-      <input type="text" placeholder="API Token (JWT)" />
+    <form phx-change="validate_token" phx-submit="load_accounts">
+      <input type="text" name="token" placeholder="API Token (JWT)" />
       <input class="button" type="submit" value="Load Accounts" />
     </form>
   </article>
 </section>
 
-<section class="row">
-  <article class="column">
-    <h2>Account List</h2>
-    <select>
-      <option value="">Choose an account</option>
-      <option value="01">BNPPF Home</option>
-      <option value="02">Belfius Business</option>
-    </select>
-  </article>
-</section>
+<%= if @accounts do %>
+  <section class="row">
+    <article class="column">
+      <h2>Account List</h2>
+      <select>
+        <option value="">Choose an account</option>
+        <%= for account <- @accounts do %>
+        <option value="<%= account.id %>"><%= account.description %></option>
+        <% end %>
+      </select>
+    </article>
+  </section>
+<% end %>
 
+<%= if @account do %>
 <section class="row">
   <article class="column">
     <h2>Account Details</h2>
@@ -36,7 +40,9 @@
     <button class="button">Load Transactions</button>
   </article>
 </section>
+<% end %>
 
+<%= if @transactions do %>
 <section class="row">
   <article class="column">
     <h2>Account Transactions</h2>
@@ -61,3 +67,4 @@
     </table>
   </article>
 </section>
+<% end %>
