@@ -2,47 +2,52 @@
   <article class="column">
     <h2>API Token</h2>
     <form phx-change="validate_token" phx-submit="load_accounts">
-      <input type="text" name="token" placeholder="API Token (JWT)" />
+      <p class="alert alert-danger" role="alert"><%= @errors[:token] %></p>
+      <input type="text" name="token" placeholder="API Token (JWT)"<%= if @token != nil do %> value="<%= @token %>"<% end %> />
       <input class="button" type="submit" value="Load Accounts" />
     </form>
   </article>
 </section>
 
-<%= if @accounts do %>
+<%= if @accounts != nil do %>
   <section class="row">
     <article class="column">
       <h2>Account List</h2>
-      <select>
-        <option value="">Choose an account</option>
-        <%= for account <- @accounts do %>
-        <option value="<%= account.id %>"><%= account.description %></option>
-        <% end %>
-      </select>
+      <form phx-submit="load_account_details">
+        <p class="alert alert-danger" role="alert"><%= @errors[:account_id] %></p>
+        <select name="account_id">
+          <option value="">Choose an account</option>
+          <%= for account <- @accounts do %>
+          <option value="<%= account.id %>"<%= if @account && @account.id == account.id do %> selected<%end %>><%= account.description %></option>
+          <% end %>
+        </select>
+        <input class="button" type="submit" value="Load Account Details" />
+      </form>
     </article>
   </section>
 <% end %>
 
-<%= if @account do %>
+<%= if @account != nil do %>
 <section class="row">
   <article class="column">
     <h2>Account Details</h2>
     <div class="container">
       <div class="row">
         <div class="column">
-          <strong>BNPPF Home</strong><br />
-          BE0987654323451
+          <strong><%= @account.description %></strong><br />
+          <%= @account.iban %>
         </div>
         <div class="column">
-          123.98 €
+          <%= @account.amount %> €
         </div>
       </div>
     </div>
-    <button class="button">Load Transactions</button>
+    <button class="button" phx-click="load_transactions" phx-value="<%= @account.id %>">Load Transactions</button>
   </article>
 </section>
 <% end %>
 
-<%= if @transactions do %>
+<%= if @transactions != nil do %>
 <section class="row">
   <article class="column">
     <h2>Account Transactions</h2>
@@ -57,13 +62,15 @@
         </tr>
       </thead>
       <tbody>
+        <%= for transaction <- @transactions do %>
         <tr>
-          <td>04/05/2019</td>
-          <td>Larkin-Crist</td>
-          <td>BE62 5219 4482 1991</td>
-          <td>Magnam et doloribus.</td>
-          <td>4.73 EUR</td>
+          <td><%= transaction.date %></td>
+          <td><%= transaction.counterpart %></td>
+          <td><%= transaction.iban %></td>
+          <td><%= transaction.remittance %></td>
+          <td><%= transaction.amount %> EUR</td>
         </tr>
+        <% end %>
     </table>
   </article>
 </section>
