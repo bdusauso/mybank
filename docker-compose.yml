@@ -6,9 +6,7 @@ volumes:
 
 services:
   mybank:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    build: ./Dockerfile
     command: mix phx.server
     volumes:
       - .:/usr/src/app
