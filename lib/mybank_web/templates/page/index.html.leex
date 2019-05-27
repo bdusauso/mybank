@@ -3,7 +3,7 @@
     <h2>API Token</h2>
     <form phx-change="validate_token" phx-submit="load_accounts">
       <p class="alert alert-danger" role="alert"><%= @errors[:token] %></p>
-      <input type="text" name="token" placeholder="API Token (JWT)"<%= if @token != nil do %> value="<%= @token %>"<% end %> />
+      <input type="text" name="token" placeholder="API Token (JWT)" value="<%= @token %>" />
       <input class="button" type="submit" value="Load Accounts" />
     </form>
   </article>
